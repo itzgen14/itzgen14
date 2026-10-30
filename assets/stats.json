@@ -4,22 +4,22 @@
   "public_repos": 1,
   "stars": 0,
   "forks": 0,
-  "commits": 3,
-  "visitors": 0,
+  "commits": 1,
+  "visitors": null,
   "repos": [
     {
       "name": "itzgen14",
       "desc": "",
-      "lang": "-",
+      "lang": "Python",
       "stars": 0,
-      "commits": 3,
-      "pushed": "2026-06-04"
+      "commits": 1,
+      "pushed": "2026-10-30"
     }
   ],
   "contributors": [
     {
       "login": "itzgen14",
-      "commits": 3,
+      "commits": 1,
       "avatar": "https://avatars.githubusercontent.com/u/289881247?v=4"
     }
   ]
