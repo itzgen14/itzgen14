@@ -1,0 +1,26 @@
+{
+  "followers": 0,
+  "following": 0,
+  "public_repos": 1,
+  "stars": 0,
+  "forks": 0,
+  "commits": 3,
+  "visitors": 0,
+  "repos": [
+    {
+      "name": "itzgen14",
+      "desc": "",
+      "lang": "-",
+      "stars": 0,
+      "commits": 3,
+      "pushed": "2026-06-04"
+    }
+  ],
+  "contributors": [
+    {
+      "login": "itzgen14",
+      "commits": 3,
+      "avatar": "https://avatars.githubusercontent.com/u/289881247?v=4"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+name: Sync README Assets
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - "assets/icons/**"
+      - ".github/workflows/sync-readme-assets.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: readme-assets
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Render assets from live GitHub data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_OWNER: ${{ github.repository_owner }}
+          VISITOR_BADGE_URL: ${{ vars.VISITOR_BADGE_URL }}
+        run: python3 scripts/update_readme_assets.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/panel.svg assets/contributors.svg assets/stats.json
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "chore(readme): sync stats panel [skip ci]"
+            git push
+          fi
