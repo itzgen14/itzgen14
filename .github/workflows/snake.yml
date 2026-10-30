@@ -12,15 +12,20 @@ jobs:
   snake:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - uses: Platane/snk@master
         with:
           github_user_name: ${{ github.repository_owner }}
-          outputs: |
-            dist/github-snake.svg
-            dist/github-snake-dark.svg?palette=github-dark
-      - uses: crazy-max/ghaction-github-pages@v4
-        with:
-          target_branch: output
-          build_dir: dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          svg_out_path: dist/github-snake.svg
+
+      - name: Push to output branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan output
+          git rm -rf . >/dev/null 2>&1 || true
+          cp dist/github-snake.svg github-contribution-grid-snake-dark.svg
+          git add -f github-contribution-grid-snake-dark.svg
+          git commit -m "chore(snake): regenerate [skip ci]"
+          git push -f origin output
